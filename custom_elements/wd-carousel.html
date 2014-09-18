@@ -1,0 +1,97 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<polymer-element name="wd-carousel"
+    attributes="owner settings">
+    <template>
+        <style>
+            li {
+                list-style:none;
+                display:inline-block;
+                margin:10px;
+            
+            }
+            .card {
+                background-color:#F0F0F0;
+                border:1px solid #CCC;
+                box-shadow: 3px 3px 5px #CCC;
+                width:150px;
+                height:250px;
+                padding:10px;
+                font-weight:200;
+            }
+        </style>
+        <core-ajax
+            auto
+            url="../json/json_data_test.js"
+            params='{"alt":"json"}'
+            handleAs="json"
+            on-core-response="{{handleResponse}}"></core-ajax>
+        <span>Hello from <b>wd-carousel</b>. This is my Shadow DOM.</span>
+        <div>{{owner}} : is the owner and <span id="el">Not ready ...</span></div>
+        <div>Object : {{settings.textColor}} is the color</div>
+        <div>Repeating array : 
+            <ul>
+            <template repeat="{{person in coresetting.arrayObj}}">
+                <li class="card">{{person.name}}</li>
+            </template>
+            </ul>
+        </div>
+        <div>JSON response : <br/>
+            <div id="response"></div>
+        </div>
+        <p><em>Category List</em>
+            <ul>
+                <template repeat="{{category in categories}}">
+                
+                    <li>test : {{category}}</li>
+                </template>
+            </ul>
+        </p>
+    </template>
+    <script>
+        Polymer('wd-carousel', {
+            handleResponse: function(event, res){
+                //every id can be grabbed by this.$
+                //pollymer calls it automatic-node-finding
+               /*
+               Note: Nodes created dynamically using data binding
+               are not added to the  this.$ hash. The hash includes 
+               only statically created shadow DOM nodes (that is, the 
+               nodes defined in the element’s outermost template).
+               */
+                this.$.response.textContent = res.response.test
+                console.dir(res.response);
+              for(var i=0; i < res.response.items.length; i++){
+                  this.categories.push(res.response.items[i].category);
+              } 
+              console.dir(this.categories);
+            },
+            owner : "Wes Duff",
+            categories: [],
+            coresetting: {
+                arrayObj: [
+                        {name: "wes"},
+                        {name: "tue"}
+                    ]
+            },
+            ready : function(){
+                this.$.el.textContent = this.owner + " is ready";
+                
+            },
+            /*
+            Important: For properties that are objects or arrays, 
+            you should always initialize the properties in the 
+            created callback. If you set the default value directly 
+            on the prototype (or on the publish object), you may run 
+            into unexpected “shared state” across different instances 
+            of the same element.
+            */
+            created: function(){
+                this.settings = {
+                    textColor: 'blue'
+                   
+                }
+            }
+        });
+    </script>
+</polymer-element>

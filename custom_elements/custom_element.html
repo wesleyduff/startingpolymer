@@ -1,0 +1,163 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+<link rel="inport" href="../bower_components/paper-menu-button.html">
+<polymer-element name="custom-element">
+     <template>
+        <style shim-shadow>
+            /*
+            Color Palet
+            http://www.google.com/design/spec/style/color.html#color-ui-color-palette
+            */
+            .primary_indigo {
+                background-color:#3F51b5;
+               background: linear-gradient(to bottom, rgba(46,68,178,1) 0%,rgba(53,74,178,1) 22%,rgba(60,80,178,1) 43%,rgba(78,95,178,0) 100%);
+                color:white;
+            }
+           .child_indigo {
+               background-color:#303F9F;
+           }
+           .grandchild_indigo {
+               background-color:#3F51B5;
+           }
+           .greatgrandchild_indigo {
+               background-color:#C5CAE9;
+           }
+           .Accent_pink {
+               background-color:#FF4081;
+           }
+           .child_pink {
+               background-color:#F50057;
+           }
+           .grandchild_pink {
+                background-color:#FF80AB;
+           }
+           .greatgrandchild_pink {
+                background-color:white;
+           }
+           core-header-panel {
+               height:100%;
+           }
+           .card {
+               height:480px;
+               width:30%;
+               box-shadow:1px 2px 12px 5px #F0F0F0;
+           }
+           .content {
+               margin:60px 60px 60px 0;
+           }
+           .core-header {
+               height:250px;
+           }
+           .core-header img{
+                position: absolute;
+                top: -51px;
+                left: 0px;
+                z-index: 0;
+                opacity:1;
+           }
+           .contact_intro {
+               overflow: hidden;
+               position:relative;
+               z-index:0;
+               margin-top:-37px;
+               height:100%;
+           }
+           .title {
+                position: relative;
+                z-index: 0;
+                color: white;
+                font-weight: bold;
+                top: 73%;
+                font-size: 26px;
+           }
+           core-toolbar {
+               position:relative;
+               z-index:100;
+           }
+           #infoIcon {
+               opacity:0;
+           }
+           .line {
+               height:1px;
+               background-color:white;
+               width:0px;
+               margin:0 auto;
+               z-index:1;
+           }
+        </style>
+        <div class="contact card">
+            <core-header-panel mode="waterfall-tall">
+                <div class="core-header " layout vertical>
+                     <core-toolbar class="primary_indigo">
+                           <core-icon-button icon="arrow-back"></core-icon-button>
+                           <div flex></div>
+                           <core-icon-button id="infoIcon" icon="info"></core-icon-button>
+                           <core-icon-button icon="more-vert" bottom></core-icon-button>
+                    </core-toolbar>
+                    <div id="line" class="line"></div>
+                    <div id="conttactIntro" class="contact_intro primary_indigo" horizontal center-justified layout>
+                        <img id="contactIntroImage" src="http://www.wesduff.com/wp-content/uploads/2014/09/profile_pic_400.jpg" alt="profile pic"/>
+                        
+                        <div id="contactIntroTitle" class="title">Wes Duff</div>
+                    </div>
+                </div>
+                <div class="content">
+                    content fits 100% below the header
+                </div>
+            </core-header-panel>
+            
+        </div>
+    </template>
+     <script>
+        Polymer('custom-element', {
+            ready : function(){
+                //the polymer element is ready
+                var polymerThis = this,
+                    contactIntroImage = polymerThis.$.contactIntroImage,
+                    contactIntroTitle = polymerThis.$.contactIntroTitle,
+                    infoIcon = polymerThis.$.infoIcon,
+                    line = polymerThis.$.line,
+                    containerEle = this.$.conttactIntro;
+                    
+                infoIcon.addEventListener('mousedown', function(){
+                    slideDown();
+                });
+                
+                //manage the animation when the user clicks on the profile image area.
+                containerEle.addEventListener('mousedown', function(){
+                    slideUp();
+                });
+                
+                function slideDown(){
+                    contactIntroImage.setAttribute('style', 'opacity:1; top:-51px;transition: top 1s linear, opacity 1s ease-in-out; -webkit-transition: top 1s linear, opacity 1s linear; ');
+                    line.setAttribute('style', 'width:0; transition: width .3s ease-out');
+                    infoIcon.setAttribute('style', 'opacity: 0; transition: opacity 1s ease-in-out .5s;');
+                    contactIntroTitle.setAttribute('style', 'top:73%; transition: top 1s ease-in-out;');
+                    containerEle.setAttribute('style', 'background-color:white; transition: background-color 1s ease-in-out; height:100%; transition: height 1s ease-in-out');
+                }
+                
+                function slideUp(){
+                    contactIntroImage.setAttribute('style', 'top:15px; opacity: 0; -webkit-transition:  top 1s linear, opacity 1s linear;transition: top 1.5s linear, opacity 1s linear;');
+                    infoIcon.setAttribute('style', 'opacity: 1; transition: opacity 1s ease-in-out .5s;');
+                    contactIntroTitle.setAttribute('style', 'top:56%; transition: top 1s ease-in-out;');
+                    containerEle.setAttribute('style', 'background-color:#3F51b5;  height:76px; transition: background-color .5s, height 1s ease-in-out;');
+                    line.setAttribute('style', 'width:94%; transition: width .5s ease-out .5s');
+                }
+            },
+            /*
+            Important: For properties that are objects or arrays, 
+            you should always initialize the properties in the 
+            created callback. If you set the default value directly 
+            on the prototype (or on the publish object), you may run 
+            into unexpected “shared state” across different instances 
+            of the same element.
+            */
+            created: function(){
+                //the polymer element has been created
+            }
+        });
+    </script>
+</polymer-element>

@@ -9,6 +9,10 @@
           href="bower_components/core-input/core-input.html">
     <link rel="import"
           href="bower_components/paper-input/paper-input.html">
+         <link rel="import"
+            href="custom_elements/wd-carousel.html">
+        <link rel="import"
+            href="custom_elements/custom_element.html">
     </head>
     <style shim-shadow>
         
@@ -17,6 +21,7 @@
           font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
           margin: 0;
           padding: 24px;
+          height:100%;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
@@ -38,16 +43,24 @@
     
   
     </style>
-    <body>
+    <body fullbleed layout vertical>
+        
         <h1>Core &amp; Paper Elements</h1>
+        <!-- 
         <ul>
             <li><strong>Basic Text Input : Core</strong><br/>
                 <core-input id="single" placeholder="Type something..."></core-input>
             </li>
             <li><strong>Basic Text Input : Paper</strong>
                 <paper-input label="Type Something" layout vertical></paper-input>
+            
             </li>
         </ul>
-       
+       <h3>Custom Elements</h3>
+       <wd-carousel owner="dub step" settings='{"textColor": "red overwrite"}'></wd-carousel>
+       <hr/>
+       <br/>
+       -->
+       <custom-element></custom-element>
     </body>
 </html>
