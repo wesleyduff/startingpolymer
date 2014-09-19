@@ -2,8 +2,12 @@
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
 <link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
-<link rel="inport" href="../bower_components/paper-menu-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <polymer-element name="custom-element">
      <template>
         <style shim-shadow>
@@ -37,27 +41,73 @@
            .greatgrandchild_pink {
                 background-color:white;
            }
+           
+           /* Paper elements */
+           paper-input {
+               width:100%;
+           }
+           paper-button::shadow #ripple {
+                color: #FF4081;
+            }
+            paper-button {
+                bottom: -36px;
+                right: 1px;
+                width: 100%;
+            }
+            ::shadow #mainContainer {
+                overflow-y:hidden;
+            }
+           
+           /* FONTS */
+           .text-xlarge, h2 {
+               font-size:24px;
+               font-weight:400;
+        
+           }
+           
+           /* Layout */
+           .bottom-offset-medium {
+               margin-bottom:10px;
+           }
+           h2 {
+               padding:0;
+               margin:0;
+           }
+           .card {
+               font-family: 'Roboto Condensed', sans-serif;
+               height:480px;
+               width:300px;
+               box-shadow:1px 2px 12px 5px #D3D3D3;
+               overflow:hidden;
+           }
+           
            core-header-panel {
                height:100%;
            }
-           .card {
-               height:480px;
-               width:30%;
-               box-shadow:1px 2px 12px 5px #F0F0F0;
-           }
+           
            .content {
-               margin:60px 60px 60px 0;
+               padding:10px;
+               margin-top:21px;
+               position:relative;
            }
-           .core-header {
+           
+           #coreHeader {
                height:250px;
            }
-           .core-header img{
+           
+           #coreHeader img{
                 position: absolute;
                 top: -51px;
                 left: 0px;
                 z-index: 0;
                 opacity:1;
            }
+           
+           core-toolbar {
+               position:relative;
+               z-index:100;
+           }
+           
            .contact_intro {
                overflow: hidden;
                position:relative;
@@ -65,6 +115,7 @@
                margin-top:-37px;
                height:100%;
            }
+           
            .title {
                 position: relative;
                 z-index: 0;
@@ -73,11 +124,8 @@
                 top: 73%;
                 font-size: 26px;
            }
-           core-toolbar {
-               position:relative;
-               z-index:100;
-           }
-           #infoIcon {
+           
+           #cancelIcon {
                opacity:0;
            }
            .line {
@@ -87,25 +135,117 @@
                margin:0 auto;
                z-index:1;
            }
+           
+           #addContactForm, #about {
+                position:absolute;
+                top:0;
+                width:280px;
+           }
+           
+           #addFab {
+                position: absolute;
+                right: 5px;
+                z-index: 500;
+                color: white;
+                top: 221px;
+           }
+           
+           #about .title {
+               color:#888;
+               display:table;
+           }
+           .logo {
+               display:table-cell;
+               vertical-align:middle;
+               width:50px;
+           }
+           #about .title span.text-xlarge {
+                display:table-cell;
+                vertical-align:middle;
+                padding-left:10px;
+               
+           }
+           #about ul{
+               margin:0;
+               padding:0;
+           }
+           li {
+               list-style:none;
+                text-align:center;
+           }
+           .icon {
+               width:50px;
+               display: inline-block;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                border-radius: 2px;
+                padding: 7px;
+                margin: 2px;
+                vertical-align: middle;
+                font-size: 1rem;
+                cursor: pointer;
+           }
+           .phone_icon, .cellphone_icon {
+               width:35px;
+           }
+           .personal_contact {
+               font-weight:300;
+               font-size:20px;
+               border-top:1px solid #aaa;
+               padding-top: 4px !important;
+           }
+           .personal_contact img {
+               margin-left:10px;
+           }
+           
         </style>
         <div class="contact card">
             <core-header-panel mode="waterfall-tall">
-                <div class="core-header " layout vertical>
-                     <core-toolbar class="primary_indigo">
-                           <core-icon-button icon="arrow-back"></core-icon-button>
-                           <div flex></div>
-                           <core-icon-button id="infoIcon" icon="info"></core-icon-button>
-                           <core-icon-button icon="more-vert" bottom></core-icon-button>
+                <paper-fab id="addFab" icon="add"></paper-fab>
+                <div id="coreHeader" layout vertical>
+                    <core-toolbar class="primary_indigo">
+                        <core-icon-button icon="arrow-back"></core-icon-button>
+                        <div flex></div>
+                        <core-icon-button id="cancelIcon" icon="cancel"></core-icon-button>
                     </core-toolbar>
                     <div id="line" class="line"></div>
-                    <div id="conttactIntro" class="contact_intro primary_indigo" horizontal center-justified layout>
+                    <div id="contactIntro" class="contact_intro primary_indigo" horizontal center-justified layout>
                         <img id="contactIntroImage" src="http://www.wesduff.com/wp-content/uploads/2014/09/profile_pic_400.jpg" alt="profile pic"/>
-                        
                         <div id="contactIntroTitle" class="title">Wes Duff</div>
+                         
                     </div>
                 </div>
                 <div class="content">
-                    content fits 100% below the header
+                    <div id="about" style="left:10px;">
+                        <div class="title">
+                            <img class="logo" src="http://www.wesduff.com/wp-content/uploads/2014/09/Dell_Logo.png" alt="Logo"/>
+                            <span class="text-xlarge"><i>Sr. Principal Engineer</i></span>
+                        </div>
+                        <ul>
+                            <li>
+                                <img class="googleplus_icon icon" src="http://www.wesduff.com/wp-content/uploads/2014/09/googleplus.png" alt="google plus icon"/>
+                                <img class="facebook_icon icon" src="http://www.wesduff.com/wp-content/uploads/2014/09/facebook.png" alt="facebook icon"/>
+                                <img class="twitter_icon icon" src="http://www.wesduff.com/wp-content/uploads/2014/09/twitter.png" alt="twitter icon"/>
+                            </li>
+                        </ul>
+                        <ul class="personal_contact">
+                            <li><img class="phone_icon icon" src="http://www.wesduff.com/wp-content/uploads/2014/09/phone.png" alt="phone icon"/>555-555-5555</li>
+                            <li><img class="cellphone_icon icon" src="http://www.wesduff.com/wp-content/uploads/2014/09/cellphone.png" alt="cell phone icon"/>333-333-3333</li>
+                        </ul>
+                    </div>
+                    <div id="addContactForm" style="left:-500px;">
+                        <h2>Add Contact</h2>
+                        <paper-input class="bottom-offset-medium" floatingLabel label="Input Test"></paper-input>
+                        <paper-checkbox></paper-checkbox> Set as Favorite
+                        <paper-radio-group selected="test1">
+                          <paper-radio-button name="test1" label="test1"></paper-radio-button>
+                          <paper-radio-button name="test2" label="test2"></paper-radio-button>
+                        </paper-radio-group>
+                        <paper-button label="raised button" raisedButton></paper-button>
+                    </div>
                 </div>
             </core-header-panel>
             
@@ -118,33 +258,46 @@
                 var polymerThis = this,
                     contactIntroImage = polymerThis.$.contactIntroImage,
                     contactIntroTitle = polymerThis.$.contactIntroTitle,
-                    infoIcon = polymerThis.$.infoIcon,
+                    cancelIcon = polymerThis.$.cancelIcon,
                     line = polymerThis.$.line,
-                    containerEle = this.$.conttactIntro;
+                    coreHeader = polymerThis.$.coreHeader,
+                    addFab = polymerThis.$.addFab,
+                    aboutPage = polymerThis.$.about,
+                    addContactFormPage = polymerThis.$.addContactForm,
+                    contactIntro = this.$.contactIntro;
                     
-                infoIcon.addEventListener('mousedown', function(){
+                cancelIcon.addEventListener('mousedown', function(){
                     slideDown();
                 });
                 
                 //manage the animation when the user clicks on the profile image area.
-                containerEle.addEventListener('mousedown', function(){
+                addFab.addEventListener('mousedown', function(){
                     slideUp();
                 });
                 
                 function slideDown(){
-                    contactIntroImage.setAttribute('style', 'opacity:1; top:-51px;transition: top 1s linear, opacity 1s ease-in-out; -webkit-transition: top 1s linear, opacity 1s linear; ');
-                    line.setAttribute('style', 'width:0; transition: width .3s ease-out');
-                    infoIcon.setAttribute('style', 'opacity: 0; transition: opacity 1s ease-in-out .5s;');
-                    contactIntroTitle.setAttribute('style', 'top:73%; transition: top 1s ease-in-out;');
-                    containerEle.setAttribute('style', 'background-color:white; transition: background-color 1s ease-in-out; height:100%; transition: height 1s ease-in-out');
+                    contactIntroImage.setAttribute('style', 'opacity:1; top:-51px;transition: top 1s, opacity 1s; -webkit-transition: top 1s, opacity 1s; ');
+                    line.setAttribute('style', 'width:0; transition: width .3s');
+                    cancelIcon.setAttribute('style', 'opacity: 0; transition: opacity .5s;');
+                    contactIntroTitle.setAttribute('style', 'top:73%; transition: top 1s;');
+                    coreHeader.setAttribute('style', 'height:250px; transition: height 1s;');
+                    contactIntro.setAttribute('style', 'background-color:white; height:100%; transition: background-color 1s, height 1s; -webkit-transition:background-color 1s, height 1s;');
+                    addFab.setAttribute('style', 'right:5px; transition: right .5s .8s');
+                    aboutPage.setAttribute('style', 'left: 10px; transition: left 1s .8s');
+                    addContactFormPage.setAttribute('style', 'left: -500px; transition: left 1s .8s');
+                    
                 }
                 
                 function slideUp(){
-                    contactIntroImage.setAttribute('style', 'top:15px; opacity: 0; -webkit-transition:  top 1s linear, opacity 1s linear;transition: top 1.5s linear, opacity 1s linear;');
-                    infoIcon.setAttribute('style', 'opacity: 1; transition: opacity 1s ease-in-out .5s;');
-                    contactIntroTitle.setAttribute('style', 'top:56%; transition: top 1s ease-in-out;');
-                    containerEle.setAttribute('style', 'background-color:#3F51b5;  height:76px; transition: background-color .5s, height 1s ease-in-out;');
-                    line.setAttribute('style', 'width:94%; transition: width .5s ease-out .5s');
+                    contactIntroImage.setAttribute('style', 'top:15px; opacity: 0; -webkit-transition:  top 1s, opacity 1s;transition: top 1.5s, opacity 1s;');
+                    cancelIcon.setAttribute('style', 'opacity: 1; transition: opacity 1s .5s;');
+                    contactIntroTitle.setAttribute('style', 'top:56%; transition: top 1s;');
+                    contactIntro.setAttribute('style', 'background-color:#3F51b5;  height:76px; transition: background-color 1s, height 1s;');
+                    coreHeader.setAttribute('style', 'height:104px; transition: height .7s;');
+                    line.setAttribute('style', 'width:94%; transition: width .5s .5s');
+                    addFab.setAttribute('style', 'right:-100px; transition: right .3s');
+                    aboutPage.setAttribute('style', 'left: 500px; transition: left 1s 1s');
+                    addContactFormPage.setAttribute('style', 'left: 10px; transition: left 1s 1s');
                 }
             },
             /*
