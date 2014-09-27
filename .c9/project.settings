@@ -2,7 +2,13 @@
     "run": {
         "@path": "/.c9/runners",
         "configs": {
-            "json()": {},
+            "json()": {
+                "index.html": {
+                    "debug": true,
+                    "name": "index.html",
+                    "command": ""
+                }
+            },
             "@inited": "true"
         }
     },
